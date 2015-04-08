@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="utf-8"?>
+	<!-- 
+		
+	    EXAMPLE: Hello World Cairngorm
+	    AUTHOR: Laura Arguello
+	    CREATED: Dec. 14, 2006
+		
+	-->
+<mx:Application xmlns:mx="http://www.adobe.com/2006/mxml" viewSourceURL="srcview/index.html"
+		pageTitle="Hello World Cairngorm Example" 
+		xmlns:view="com.asfusion.helloworld.cairngorm.view.*" 
+		xmlns:control="com.asfusion.helloworld.cairngorm.control.*" 
+		xmlns:business="com.asfusion.helloworld.cairngorm.business.*">
+	<mx:Style source="assets/styles/main.css" />
+		
+	<business:Services id="services" />
+	<control:Controller id="controller" /> 
+		
+		<!-- Main view that contains the complete app -->
+	<view:MainPanel />
+	
+</mx:Application>

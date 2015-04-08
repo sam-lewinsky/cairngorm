@@ -1,0 +1,20 @@
+/* CSS file */
+
+Application {
+	themeColor: #B6CFFF;
+	backgroundGradientColors: #ffffff, #c0c0c0;
+}
+
+Panel {
+	headerColors: #B6CFFF,#E5FFFF;
+	borderAlpha: 1;
+	cornerRadius: 0;
+	borderThicknessBottom: 0;
+	borderThicknessLeft: 0;
+	borderThicknessRight:0;
+}
+
+Alert {
+	backgroundColor: #FFFFFF;
+	color: #000000;
+}

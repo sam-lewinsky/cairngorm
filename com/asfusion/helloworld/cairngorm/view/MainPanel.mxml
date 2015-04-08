@@ -1,0 +1,70 @@
+<?xml version="1.0" encoding="utf-8"?>
+<mx:Canvas xmlns:mx="http://www.adobe.com/2006/mxml">
+
+		<mx:Script>
+			<![CDATA[
+				import com.adobe.cairngorm.control.CairngormEventDispatcher;
+				import com.asfusion.helloworld.cairngorm.event.MessageEvent;
+				import com.asfusion.helloworld.cairngorm.model.HelloWorldModelLocator;
+			
+				// Function that dispatches the Cairngorm event to get the message
+				// from the server
+				private function getMessage():void {
+					
+					var event:MessageEvent = new MessageEvent(MessageEvent.GET_MESSAGE);
+					event.name = inputName.text;
+					//dispatch an event requesting for the message that the server has for us
+					CairngormEventDispatcher.getInstance().dispatchEvent( event );
+				}
+				
+			
+				public function set setState(value:uint):void {
+					/* I think it is best not to use these static variables to indicate current state, 
+					but since this example is supposed to follow Cairngorm's methodology, I am using
+					them here */
+					switch(value) {
+						case HelloWorldModelLocator.NO_MESSAGE:
+							currentState = "";
+							break;
+							
+						case HelloWorldModelLocator.SHOW_MESSAGE:
+							currentState = "response";
+							break;				
+					}
+				}
+			
+		]]>
+	</mx:Script>
+
+	<mx:Binding source="{HelloWorldModelLocator.getInstance().viewState}" destination="setState" />
+	
+		<mx:HBox width="100%" horizontalAlign="center" height="114" id="hbox1">
+			<!-- Main panel -->
+			<mx:Panel  height="92" width="315" title="Hello World using Cairngorm and Remoting" id="mainPanel" x="435" 
+			resizeEffect="Resize" >
+				<mx:Canvas id="internalCanvas" height="100%" width="100%" 
+					horizontalScrollPolicy="off" verticalScrollPolicy="off">
+					<!-- Input label -->
+					<mx:Label x="9" y="18" text="Write your name:"/>
+					
+					<!-- Text input to enter name -->
+					<mx:TextInput x="116" y="16" id="inputName" width="124" enter="getMessage()"/>
+					
+					<!-- GO button that sends the request -->
+					<mx:Button x="244" y="16" label="GO" width="41" click="getMessage()" cornerRadius="0"/>
+				</mx:Canvas>
+			</mx:Panel>	
+		</mx:HBox>
+		
+		<!-- State to show the response text -->
+		<mx:states>
+			<mx:State name="response">
+				<mx:SetProperty target="{mainPanel}" name="height" value="130"/>
+				<mx:AddChild relativeTo="{internalCanvas}" position="lastChild">
+					<mx:Text id="display" x="10" y="57" width="271" height="23" text="{HelloWorldModelLocator.getInstance().message.text}" fontWeight="bold" />
+				</mx:AddChild>
+				<mx:SetProperty target="{hbox1}" name="width" value="461"/>
+				<mx:SetProperty target="{hbox1}" name="height" value="250"/>
+			</mx:State>
+		</mx:states>
+</mx:Canvas>
